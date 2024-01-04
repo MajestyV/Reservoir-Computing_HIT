@@ -42,7 +42,9 @@ rng=np.random.RandomState(42)
 # calculate the memory capacity ot RC model
 def memory_capacity(Prediction=None, Output=None, length=1000):
     if Prediction.shape[1]==1:
-        sumR_coor=(np.corrcoef(Prediction[-length:].T, Output[-length:].T)[0,1])**2
+        corrcoeff = np.corrcoef(Prediction[-length:].T, Output[-length:].T)
+        print(corrcoeff)
+        sumR_coor=(corrcoeff[0,1])**2
     else:
         sumR_coor=0
         for i in range(Prediction.shape[1]):
