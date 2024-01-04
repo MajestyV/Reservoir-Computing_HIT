@@ -106,7 +106,7 @@ def Network_initial(network_name=None,network_size=300,density=0.2,Depth=10,MC_c
     return R_initial
 
 # the method of training the readout matrix
-def traing_Wout(train_data,R_state,index=0,k=0.8):
+def training_Wout(train_data,R_state,index=0,k=0.8):
     W_out= np.zeros((R_state.shape[1], train_data.shape[1]))
     if index==0:
         W_out=np.dot(np.linalg.pinv(R_state),train_data)#Dr*N

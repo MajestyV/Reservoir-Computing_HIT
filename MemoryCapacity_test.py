@@ -55,7 +55,7 @@ if __name__ == '__main__':
     souce_node_index = np.ones(Dr)
     souce_node_index[MC_configure['number'][0]:] = 0
 
-    rg = nx.from_numpy_matrix(((R_network > 0) * 1).T, create_using=nx.DiGraph())
+    rg = nx.from_numpy_array(((R_network > 0) * 1).T, create_using=nx.DiGraph())
     # print(pd.Series(node_cluster1(rg, souce_node_index)).value_counts())
 
     RC = reservoir_computing(
@@ -71,8 +71,8 @@ if __name__ == '__main__':
     MC_C = np.zeros((tuo))
     for i in range(tuo, 0, -1):
         print(i)
-        Expect_output = data_initial[i:(16000 + i), :]
-        pred_train = RC.Training_phase(train_data, Expect_output, index_method=4)
+        Expect_output = data_initial[i:(16000+(i)), :]
+        pred_train = RC.Training_phase(train_data, Expect_output, index_method=2)
 
         # print(pred_train.shape, Expect_output.shape)
 

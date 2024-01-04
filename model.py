@@ -51,7 +51,7 @@ class reservoir_computing():
             R_state[i,:]=np.tanh(np.dot(self.rho*self.R_network, R_state[i-1,:])
                          +self.delta*np.dot(self.W_in,train_data[i,:])+self.b)
         
-        W_out=traing_Wout(Train_expect[self.transient:,:],R_state[self.transient:,:],index=index_method,k=0.8)
+        W_out=training_Wout(Train_expect[self.transient:,:],R_state[self.transient:,:],index=index_method,k=0.8)
 #        print(W_out.shape)
         
         Pre_train_output=np.dot(R_state,W_out)
