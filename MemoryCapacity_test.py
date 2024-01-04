@@ -70,8 +70,9 @@ if __name__ == '__main__':
 
     MC_C = np.zeros((tuo))
     for i in range(tuo, 0, -1):
-        print(i)
+        # print(i)
         Expect_output = data_initial[i:(16000+(i)), :]
+        print(Expect_output.shape)
         pred_train = RC.Training_phase(train_data, Expect_output, index_method=2)
 
         # print(pred_train.shape, Expect_output.shape)
