@@ -63,13 +63,13 @@ def R_shuffle(node_number=0,path_length=0):
 
 def Network_initial(network_name=None,network_size=300,density=0.2,Depth=10,MC_configure=None):
 
-    if network_name is "ER":
+    if network_name == "ER":
         rg=nx.erdos_renyi_graph(network_size,density,directed=False)#ER
         R_initial=nx.adjacency_matrix(rg).toarray()
-    elif network_name is "DCG":
+    elif network_name == "DCG":
         rg=nx.erdos_renyi_graph(network_size,density,directed=True)#ER 
         R_initial=nx.adjacency_matrix(rg).toarray()    
-    elif network_name is "DAG":
+    elif network_name == "DAG":
         if MC_configure is not None:
             xx=np.append(0,np.cumsum(MC_configure['number']))
             for i in range(xx.shape[0]-1):

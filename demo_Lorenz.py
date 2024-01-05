@@ -67,6 +67,8 @@ R_network_0=(Network_initial(network_name[index_R],network_size=Dr,density=densi
 R_network_0=np.triu(np.multiply(R_network_0,Network_weight))+np.triu(np.multiply(R_network_0,Network_weight)).T
 R_network=R_network_0/np.max(np.abs(np.linalg.eigvals(R_network_0)))
 
+print(R_network)
+
 RC=reservoir_computing(
           N = N,
           Dr =Dr,
