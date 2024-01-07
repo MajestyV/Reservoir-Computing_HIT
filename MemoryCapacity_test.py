@@ -32,28 +32,22 @@ if __name__ == '__main__':
     b = 0 - delta / initial_radius * intial_expand
     delta = delta / initial_radius
 
-    network_name = ["ER", 'DAG']
-    index_R = 1
+
+    network_name = ["ER", 'DCG', 'DAG']
+    index_R = 0
     Network_weight = rng.rand(Dr, Dr)
-    MC_configure = {}
-    MC_configure['number'] = np.array([10] * 6)
-    MC_configure[1] = np.array([1])
-    MC_configure[2] = np.array([2])
-    MC_configure[3] = np.array([3])
-    MC_configure[4] = np.array([4])
-    MC_configure[5] = np.array([5])
-    MC_configure[6] = np.array([6])
-    R_network_0 = (Network_initial(network_name[index_R], network_size=Dr, density=density, Depth=6,
-                                   MC_configure=MC_configure)).T * (Network_weight + Network_weight.T) / 2
-    W_sum = np.sum(R_network_0, 0)
-    W_sum[W_sum == 0] = 1
-    R_network = R_network_0 * 1.0 / W_sum
+    MC_configure = None
+    R_network_0 = (
+        Network_initial(network_name[index_R], network_size=Dr, density=density, Depth=0, MC_configure=MC_configure)).T
+    R_network_0 = np.triu(np.multiply(R_network_0, Network_weight)) + np.triu(
+        np.multiply(R_network_0, Network_weight)).T
+    R_network = R_network_0 / np.max(np.abs(np.linalg.eigvals(R_network_0)))
 
     # top 10 nodes are the source nodes
-    W_in[MC_configure['number'][0]:, :] = 0
+    # W_in[MC_configure['number'][0]:, :] = 0
 
-    souce_node_index = np.ones(Dr)
-    souce_node_index[MC_configure['number'][0]:] = 0
+    # souce_node_index = np.ones(Dr)
+    # souce_node_index[MC_configure['number'][0]:] = 0
 
     rg = nx.from_numpy_array(((R_network > 0) * 1).T, create_using=nx.DiGraph())
     # print(pd.Series(node_cluster1(rg, souce_node_index)).value_counts())
@@ -73,7 +67,7 @@ if __name__ == '__main__':
         # print(i)
         Expect_output = data_initial[i:(16000+(i)), :]
         print(Expect_output.shape)
-        pred_train = RC.Training_phase(train_data, Expect_output, index_method=2)
+        pred_train = RC.Training_phase(train_data, Expect_output, index_method=4)
 
         # print(pred_train.shape, Expect_output.shape)
 
